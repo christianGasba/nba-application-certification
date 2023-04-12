@@ -1,0 +1,52 @@
+<div *ngFor="let teamTracked of teamsTracked">
+  <div>
+    <h3>{{ teamTracked.full_name }} [{{ teamTracked.abbreviation }}]</h3>
+    <button
+      [id]="'remove' + teamTracked.abbreviation"
+      [name]="'remove' + teamTracked.abbreviation"
+      (click)="removeTeamTrackedHandler(teamTracked.id)"
+    >
+      x
+    </button>
+  </div>
+  <div>
+    <p>conference {{ teamTracked.conference }}</p>
+    <p>resut of the past 12 days:</p>
+    <span
+      *ngFor="let resultGame of teamTracked.gameResultsLastDays.resultsGames"
+    >
+      {{ resultGame }}</span
+    >
+    <p>
+      Avg pts scored
+      <b>{{
+        teamTracked.gameResultsLastDays.avgPtsScored | number : "1.0-0"
+      }}</b>
+    </p>
+    <p>
+      Avg pts conceded
+      <b>{{
+        teamTracked.gameResultsLastDays.avgPtsConcede | number : "1.0-0"
+      }}</b>
+    </p>
+  </div>
+  <div>
+    <img
+      [src]="
+        'https://interstate21.com/nba-logos/' +
+        teamTracked.abbreviation +
+        '.png'
+      "
+      width="128"
+      height="128"
+      [alt]="teamTracked.abbreviation"
+    />
+  </div>
+  <button
+    [id]="'results' + teamTracked.abbreviation"
+    [name]="'results' + teamTracked.abbreviation"
+    [routerLink]="'./results/' + teamTracked.id"
+  >
+    See game result
+  </button>
+</div>

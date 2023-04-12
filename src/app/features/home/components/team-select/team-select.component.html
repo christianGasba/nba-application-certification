@@ -1,0 +1,19 @@
+<div>
+  <select
+    name="teamSelect"
+    id="teamSelect"
+    [ngModel]="teams[0]"
+    #teamSelect="ngModel"
+  >
+    <option *ngFor="let team of teams" [id]="team.id" [ngValue]="team">
+      {{ team.full_name }}
+    </option>
+  </select>
+  <button
+    name="trackBtn"
+    id="trackBtn"
+    (click)="clickTrackBtn(teamSelect.value)"
+  >
+    Track team
+  </button>
+</div>

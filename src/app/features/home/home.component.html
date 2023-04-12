@@ -1,0 +1,9 @@
+<h2>Nba Score Tracking App</h2>
+<app-team-select
+  [teams]="teams"
+  (teamTrackEmitter)="teamTrackHandler($event)"
+></app-team-select>
+<app-list-teams-tracked
+  [teamsTracked]="teamsTracked"
+  (removeTeamTrackedEmitter)="removeTeamTrackedHandler($event)"
+></app-list-teams-tracked>
