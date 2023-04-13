@@ -10,13 +10,20 @@
     </button>
   </div>
   <div>
-    <p>conference {{ teamTracked.conference }}</p>
+    <p>{{ teamTracked.conference | cardinalPoint }} conference</p>
     <p>resut of the past 12 days:</p>
     <span
       *ngFor="let resultGame of teamTracked.gameResultsLastDays.resultsGames"
     >
-      {{ resultGame }}</span
-    >
+      <span
+        [ngClass]="{
+          'result-win': resultGame === 'W',
+          'result-lose': resultGame === 'L'
+        }"
+      >
+        {{ resultGame }}
+      </span>
+    </span>
     <p>
       Avg pts scored
       <b>{{

@@ -1,5 +1,5 @@
 import { Pagination } from './pagination';
-import { Team } from './teams';
+import { IdentifiedTeams, Team } from './teams';
 export interface GamesData {
   data: Game[];
   meta: Pagination;
@@ -20,9 +20,9 @@ export interface Game {
 }
 
 export interface GameResultsLastDays {
+  identifiedTeams: IdentifiedTeams[];
   currentTeamId: number;
   resultsGames: ('W' | 'L')[];
   avgPtsScored: number;
   avgPtsConcede: number;
 }
-

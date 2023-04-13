@@ -2,6 +2,7 @@ import { Team, TeamData, TeamTracked } from 'src/app/shared/models/teams';
 import { NbaService } from './../../shared/services/nba.service';
 import { Component, OnInit } from '@angular/core';
 import { GameResultsLastDays, GamesData } from 'src/app/shared/models/games';
+import { HomeService } from './services/home.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,14 @@ export class HomeComponent implements OnInit {
   teamsData: TeamData | null = null;
   teams: Team[] = [];
   teamsTracked: TeamTracked[] = [];
-  constructor(private readonly nbaService: NbaService) {}
+  constructor(
+    private readonly nbaService: NbaService,
+    private readonly homeService: HomeService
+  ) {
+    this.homeService.getTeamsTracked().subscribe((res) => {
+      this.teamsTracked = res;
+    });
+  }
 
   ngOnInit(): void {
     this.getNbaTeams();
@@ -25,20 +33,10 @@ export class HomeComponent implements OnInit {
   }
 
   teamTrackHandler(teamToTrack: Team): void {
-    this.nbaService
-      .getTrackedTeamLastResults(teamToTrack.id)
-      .subscribe((res: GameResultsLastDays) => {
-        const teamTracked: TeamTracked = {
-          ...teamToTrack,
-          gameResultsLastDays: res,
-        };
-        this.teamsTracked = [teamTracked, ...this.teamsTracked];
-      });
+    this.homeService.addTeamTracked(teamToTrack.id);
   }
 
   removeTeamTrackedHandler(teamToRemoveId: number): void {
-    this.teamsTracked = this.teamsTracked.filter(
-      (el) => el.id !== teamToRemoveId
-    );
+    this.homeService.delTeamTracked(teamToRemoveId);
   }
 }
