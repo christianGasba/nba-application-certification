@@ -1,1 +1,18 @@
-<p>results works!</p>
+<div *ngIf="currentTeam">
+  <div>
+    <h3>{{ currentTeam?.full_name }} [{{ currentTeam?.abbreviation }}]</h3>
+    <p>{{ currentTeam?.conference | cardinalPoint }} conference</p>
+  </div>
+  <div *ngFor="let identifiedTeam of gameResultsLastDays?.identifiedTeams">
+    <p>
+      <span>
+        <b>{{ identifiedTeam.currentTeam.team.abbreviation }}</b>
+        <span>{{ identifiedTeam.currentTeam.score }}</span>
+        <span> - </span>
+        <span>{{ identifiedTeam.opponentTeam.score }}</span>
+        <b>{{ identifiedTeam.opponentTeam.team.abbreviation }}</b>
+      </span>
+    </p>
+  </div>
+  <button id="backBtn" [routerLink]="''"> << Back to all team stats</button>
+</div>

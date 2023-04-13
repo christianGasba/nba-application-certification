@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     private readonly nbaService: NbaService,
     private readonly homeService: HomeService
   ) {
-    this.homeService.getTeamsTracked().subscribe((res) => {
+    this.homeService.getTeamsTracked().subscribe((res: TeamTracked[]) => {
       this.teamsTracked = res;
     });
   }
@@ -37,6 +37,9 @@ export class HomeComponent implements OnInit {
   }
 
   removeTeamTrackedHandler(teamToRemoveId: number): void {
+    this.teamsTracked = this.teamsTracked.filter(
+      (el) => el.id !== teamToRemoveId
+    );
     this.homeService.delTeamTracked(teamToRemoveId);
   }
 }
