@@ -10,7 +10,6 @@ import { HomeService } from './services/home.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  teamsData: TeamData | null = null;
   teams: Team[] = [];
   teamsTracked: TeamTracked[] = [];
   constructor(
@@ -26,7 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   getNbaTeams(): void {
-    this.nbaService.getTeams().subscribe((res) => {
+    this.nbaService.getTeams().subscribe((res: TeamData) => {
       this.teams = res['data'];
     });
   }
