@@ -1,59 +1,66 @@
-<div *ngFor="let teamTracked of teamsTracked">
-  <div>
-    <h3>{{ teamTracked.full_name }} [{{ teamTracked.abbreviation }}]</h3>
+<div class="team-tracked-list">
+  <div *ngFor="let teamTracked of teamsTracked" class="team-card">
+    <div class="custom-header">
+      <div>
+        <h3>{{ teamTracked.full_name }} [{{ teamTracked.abbreviation }}]</h3>
+        <p>{{ teamTracked.conference | cardinalPoint }} conference</p>
+      </div>
+      <button
+        class="custom-btn custom-btn--empty-button"
+        [id]="'remove' + teamTracked.abbreviation"
+        [name]="'remove' + teamTracked.abbreviation"
+        (click)="removeTeamTrackedHandler(teamTracked.id)"
+      >
+        x
+      </button>
+    </div>
+    <span class="custom-line"></span>
+    <div>
+      <p>Resut of the past 12 days:</p>
+      <span
+        *ngFor="let resultGame of teamTracked.gameResultsLastDays.resultsGames"
+      >
+        <span
+          [ngClass]="{
+            'result-win': resultGame === 'W',
+            'result-lose': resultGame === 'L'
+          }"
+        >
+          {{ resultGame }}
+        </span>
+      </span>
+      <p>
+        Avg pts scored
+        <b>{{
+          teamTracked.gameResultsLastDays.avgPtsScored | number : "1.0-0"
+        }}</b>
+      </p>
+      <p>
+        Avg pts conceded
+        <b>{{
+          teamTracked.gameResultsLastDays.avgPtsConcede | number : "1.0-0"
+        }}</b>
+      </p>
+    </div>
+    <div>
+      <img
+        [src]="
+          'https://interstate21.com/nba-logos/' +
+          teamTracked.abbreviation +
+          '.png'
+        "
+        width="128"
+        height="128"
+        [alt]="teamTracked.abbreviation"
+      />
+    </div>
     <button
-      [id]="'remove' + teamTracked.abbreviation"
-      [name]="'remove' + teamTracked.abbreviation"
-      (click)="removeTeamTrackedHandler(teamTracked.id)"
+      class="custom-btn custom-btn--green"
+      [id]="'results' + teamTracked.abbreviation"
+      [name]="'results' + teamTracked.abbreviation"
+      [routerLink]="'./results/' + teamTracked.id"
     >
-      x
+      See game result >>
     </button>
   </div>
-  <div>
-    <p>{{ teamTracked.conference | cardinalPoint }} conference</p>
-    <p>resut of the past 12 days:</p>
-    <span
-      *ngFor="let resultGame of teamTracked.gameResultsLastDays.resultsGames"
-    >
-      <span
-        [ngClass]="{
-          'result-win': resultGame === 'W',
-          'result-lose': resultGame === 'L'
-        }"
-      >
-        {{ resultGame }}
-      </span>
-    </span>
-    <p>
-      Avg pts scored
-      <b>{{
-        teamTracked.gameResultsLastDays.avgPtsScored | number : "1.0-0"
-      }}</b>
-    </p>
-    <p>
-      Avg pts conceded
-      <b>{{
-        teamTracked.gameResultsLastDays.avgPtsConcede | number : "1.0-0"
-      }}</b>
-    </p>
-  </div>
-  <div>
-    <img
-      [src]="
-        'https://interstate21.com/nba-logos/' +
-        teamTracked.abbreviation +
-        '.png'
-      "
-      width="128"
-      height="128"
-      [alt]="teamTracked.abbreviation"
-    />
-  </div>
-  <button
-    [id]="'results' + teamTracked.abbreviation"
-    [name]="'results' + teamTracked.abbreviation"
-    [routerLink]="'./results/' + teamTracked.id"
-  >
-    See game result >>
-  </button>
 </div>

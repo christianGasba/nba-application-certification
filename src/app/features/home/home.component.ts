@@ -37,9 +37,6 @@ export class HomeComponent implements OnInit {
   }
 
   removeTeamTrackedHandler(teamToRemoveId: number): void {
-    this.teamsTracked = this.teamsTracked.filter(
-      (el) => el.id !== teamToRemoveId
-    );
     this.homeService.delTeamTracked(teamToRemoveId);
   }
 }

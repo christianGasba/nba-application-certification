@@ -1,5 +1,6 @@
 <div>
   <select
+    class="custom-select "
     name="teamSelect"
     id="teamSelect"
     [ngModel]="teams[0]"
@@ -10,6 +11,7 @@
     </option>
   </select>
   <button
+    class="custom-btn custom-btn--blue"
     name="trackBtn"
     id="trackBtn"
     (click)="clickTrackBtn(teamSelect.value)"

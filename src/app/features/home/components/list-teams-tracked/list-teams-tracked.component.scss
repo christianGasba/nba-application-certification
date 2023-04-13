@@ -1,9 +1,24 @@
 .result-win {
   color: white;
   background-color: green;
+  padding: 2px;
+  border-radius: 10%;
+  margin: 0 2px;
+  text-align: center;
 }
 
 .result-lose {
   color: white;
   background-color: red;
+  padding: 2px;
+  border-radius: 10%;
+  margin: 0 2px;
+  text-align: center;
+}
+
+.team-tracked-list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }

@@ -1,18 +1,24 @@
-<div *ngIf="currentTeam">
-  <div>
-    <h3>{{ currentTeam?.full_name }} [{{ currentTeam?.abbreviation }}]</h3>
-    <p>{{ currentTeam?.conference | cardinalPoint }} conference</p>
+<div class="team-container">
+  <div *ngIf="currentTeam" class="team-card">
+    <div>
+      <h3>{{ currentTeam.full_name }} [{{ currentTeam.abbreviation }}]</h3>
+      <p>{{ currentTeam.conference | cardinalPoint }} conference</p>
+    </div>
+    <span class="custom-line"></span>
+    <p>Scores of past 12 days:</p>
+    <div *ngFor="let identifiedTeam of gameResultsLastDays?.identifiedTeams">
+      <p>
+        <span>
+          <b>{{ identifiedTeam.currentTeam.team.abbreviation }}</b>
+          <span>{{ identifiedTeam.currentTeam.score | number : "1.0-0" }}</span>
+          <span> - </span>
+          <span>{{ identifiedTeam.opponentTeam.score | number : "1.0-0" }}</span>
+          <b>{{ identifiedTeam.opponentTeam.team.abbreviation }}</b>
+        </span>
+      </p>
+    </div>
+    <button class="custom-btn custom-btn--green" id="backBtn" [routerLink]="''">
+      << Back to all team stats
+    </button>
   </div>
-  <div *ngFor="let identifiedTeam of gameResultsLastDays?.identifiedTeams">
-    <p>
-      <span>
-        <b>{{ identifiedTeam.currentTeam.team.abbreviation }}</b>
-        <span>{{ identifiedTeam.currentTeam.score }}</span>
-        <span> - </span>
-        <span>{{ identifiedTeam.opponentTeam.score }}</span>
-        <b>{{ identifiedTeam.opponentTeam.team.abbreviation }}</b>
-      </span>
-    </p>
-  </div>
-  <button id="backBtn" [routerLink]="''"> << Back to all team stats</button>
 </div>

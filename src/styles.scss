@@ -1,22 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
-
-.flex {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
+.custom-btn {
+  padding: 8px;
+  border: 0;
+  cursor: pointer;
+  border-radius: 2px;
+  &:hover {
+    opacity: 0.5;
+  }
+  &--green {
+    background-color: green;
+    color: white;
+  }
+  &--blue {
+    background-color: blue;
+    color: white;
+  }
+  &--empty-button {
+    background-color: transparent;
+  }
 }
 
-body {
-  padding-top: 10px;
+.custom-select {
+  padding: 8px;
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 8px;
+  margin-right: 4px;
+  cursor: pointer;
 }
 
-.icon {
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    right: 20px;
-    top: -2px;
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-line {
+  border-top: 1px solid lightgray;
+  display: flex;
+}
+
+.team-card {
+  border: 1px solid lightgrey;
+  margin: 8px;
+  padding: 8px;
+  &:first-child {
+    margin: 8px 8px 8px 0rem !important;
+  }
 }
