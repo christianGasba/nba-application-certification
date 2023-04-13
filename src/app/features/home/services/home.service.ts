@@ -16,16 +16,11 @@ import { Team, TeamTracked } from 'src/app/shared/models/teams';
 })
 export class HomeService {
   private readonly teamsTrackedKey: 'teamsTracked' = 'teamsTracked';
-  private readonly teamsTrackedSubject: BehaviorSubject<number[]>;
 
-  constructor(private readonly nbaService: NbaService) {
-    this.teamsTrackedSubject = new BehaviorSubject<number[]>(
-      this.getTeamsTrackedLocalStorage()
-    );
-  }
+  constructor(private readonly nbaService: NbaService) {}
 
   getTeamsTracked(): Observable<TeamTracked[]> {
-    return this.teamsTrackedSubject
+    return of(this.getTeamsTrackedLocalStorage())
       .pipe(
         concatMap((teamsTrackedIds: number[]) => {
           if (teamsTrackedIds.length === 0) {
@@ -82,7 +77,6 @@ export class HomeService {
   }
 
   setTeamsTrackedLocalStorage(newteamsTracked: number[]): void {
-    this.teamsTrackedSubject.next(newteamsTracked);
     const data: string = JSON.stringify(newteamsTracked);
     localStorage.setItem(this.teamsTrackedKey, data);
   }

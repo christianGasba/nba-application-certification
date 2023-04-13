@@ -16,14 +16,13 @@ export class HomeComponent implements OnInit {
   constructor(
     private readonly nbaService: NbaService,
     private readonly homeService: HomeService
-  ) {
-    this.homeService.getTeamsTracked().subscribe((res: TeamTracked[]) => {
-      this.teamsTracked = res;
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getNbaTeams();
+    this.homeService.getTeamsTracked().subscribe((res: TeamTracked[]) => {
+      this.teamsTracked = res;
+    });
   }
 
   getNbaTeams(): void {
@@ -33,10 +32,19 @@ export class HomeComponent implements OnInit {
   }
 
   teamTrackHandler(teamToTrack: Team): void {
-    this.homeService.addTeamTracked(teamToTrack.id);
+    this.nbaService
+      .getTrackedTeamLastResults(teamToTrack.id)
+      .subscribe((res: GameResultsLastDays) => {
+        this.homeService.addTeamTracked(teamToTrack.id);
+        const teamTracked = { ...teamToTrack, gameResultsLastDays: res };
+        this.teamsTracked = [...this.teamsTracked, teamTracked];
+      });
   }
 
   removeTeamTrackedHandler(teamToRemoveId: number): void {
+    this.teamsTracked = this.teamsTracked.filter(
+      (el) => el.id !== teamToRemoveId
+    );
     this.homeService.delTeamTracked(teamToRemoveId);
   }
 }
